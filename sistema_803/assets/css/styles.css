@@ -231,13 +231,13 @@ button, .button{
 }
 
 .button{
-    background: #33AE3D;
+    background: #FFFFFF;
     color: white !important;
     text-decoration: none;
 }
 
 .button-small{
-    width: 120px;
+    width: 12px;
     text-align: center;
     margin-bottom: 20px;
 }
