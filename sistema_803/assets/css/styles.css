@@ -355,16 +355,36 @@ button{
 
 /* Ajuste específico para la imagen para que no crezca demasiado */
 #detail-product .image {
-    flex: 0 0 40%; /* La imagen ocupará el 40% del ancho, no más */
-    max-width: 400px; /* Tamaño máximo para que no se vea gigante */
+    /* ESTO DELIMITA EL ESPACIO DISPONIBLE */
+    width: 400px;           /* Ancho fijo para el marco */
+    height: 400px;          /* Alto fijo para el marco (cuadrado) */
+    
+    /* Centramos la imagen dentro del contenedor (por si acaso) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Estilos opcionales para crear un marco visual (como en la imagen) */
+    background-color: #fff; /* Fondo blanco */
+    border: 1px solid #ddd;  /* Un borde gris muy fino */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Sombra suave para darle relieve */
+    
+    /* Asegurar que la imagen no se desborde nunca */
+    overflow: hidden;
 }
 
 #detail-product .image img {
-    width: 100%; /* La imagen se ajustará al ancho de su contenedor (40%) */
-    height: auto; /* Mantiene la proporción para que no se deforme */
-    display: block;
+    /* ESTO FUERZA A LA IMAGEN A AJUSTARSE */
+    max-width: 100%;       /* No puede ser más ancha que su contenedor (400px) */
+    max-height: 100%;      /* No puede ser más alta que su contenedor (400px) */
+    
+    /* Esta es la clave: Escala la imagen sin recortarla ni deformarla */
+    object-fit: contain;   /* Mantiene la proporción y la centra automáticamente */
+    
+    /* Asegura que si la imagen es pequeña, no se pixelee para llenarlo */
+    width: auto;
+    height: auto;
 }
-
 #detail-product .data {
     flex: 1; /* El texto tomará el resto del espacio disponible */
 }
