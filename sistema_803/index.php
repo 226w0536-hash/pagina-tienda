@@ -1,25 +1,25 @@
 <?php
 session_start();
-// Habilitar errores para depuración durante el desarrollo en Railway
+
+// --- LECTOR DE URL DIRECTO (Inyección manual) ---
+$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2); 
+$path = trim($request_uri[0], '/'); 
+
+if (!empty($path)) {
+    $parts = explode('/', $path);
+    // Si no existen en $_GET (porque el .htaccess no los pasó), los inyectamos desde la URI
+    if (!isset($_GET['controller'])) $_GET['controller'] = $parts[0];
+    if (!isset($_GET['action']) && isset($parts[1])) $_GET['action'] = $parts[1];
+}
+
+// --- DEBUG PARA VERIFICAR ---
 echo "DEBUG: ";
 var_dump($_GET);
-if (isset($_GET['controller']) && $_GET['controller'] == 'categoria') {
-    echo "¡Controlador detectado! Acción: " . (isset($_GET['action']) ? $_GET['action'] : 'ninguna');
-    echo " | ID: " . (isset($_GET['id']) ? $_GET['id'] : 'no recibido');
-    // die(); // Descomenta esta línea si quieres ver solo este mensaje y parar todo
-}
+// ----------------------------
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-if (isset($_GET['url'])) {
-    // Ejemplo de URL recibida: "categoria/ver"
-    $ruta = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
-    
-    // Asignamos manualmente los valores que tu sistema espera
-    if (isset($ruta[0])) $_GET['controller'] = $ruta[0];
-    if (isset($ruta[1])) $_GET['action'] = $ruta[1];
-}
 
 require_once 'autoload.php';
 require_once 'config/db.php';
@@ -40,7 +40,7 @@ function show_error() {
  * Lógica principal de enrutamiento
  */
 
-// 1. Determinar el controlador (si no existe, usar el por defecto)
+// 1. Determinar el controlador
 if (isset($_GET['controller'])) {
     $nombre_controlador = $_GET['controller'] . 'Controller';
 } else {
@@ -51,20 +51,17 @@ if (isset($_GET['controller'])) {
 if (class_exists($nombre_controlador)) {
     $controlador = new $nombre_controlador();
     
-    // 3. Determinar la acción (si no existe, usar la por defecto)
+    // 3. Determinar la acción
     if (isset($_GET['action']) && method_exists($controlador, $_GET['action'])) {
         $action = $_GET['action'];
         $controlador->$action();
     } elseif (!isset($_GET['controller']) && !isset($_GET['action'])) {
-        // Carga la acción por defecto si el usuario está en la raíz
         $action_default = action_default;
         $controlador->$action_default();
     } else {
-        // La acción no existe o es inválida
         show_error();
     }
 } else {
-    // El controlador no existe
     show_error();
 }
 
