@@ -339,21 +339,22 @@ button{
     box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Sombra elegante */
 }
 
-/* Ajuste del contenido dentro del recuadro */
-#detail-product {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-}
 
 /* Fondo blanco para la imagen dentro del recuadro gris */
 #detail-product {
     display: flex;
-    gap: 40px; /* Espacio entre imagen y texto */
-    align-items: flex-start; /* Alinea los elementos arriba */
-    width: 100%;
+    gap: 40px;
+    align-items: flex-start;
+    
+    /* ESTO ES LO QUE LO CENTRA */
+    width: 90%;          /* Que no ocupe el 100% absoluto */
+    max-width: 1000px;   /* Que no se estire demasiado en pantallas grandes */
+    margin: 0 auto;      /* "0" arriba/abajo, "auto" a los lados lo centra */
+}
+
+/* Asegurar que el contenedor principal no esté forzando la alineación a la izquierda */
+.central {
+    text-align: left; /* Tu contenido general debe ser left, pero el detalle irá al centro por el margin: auto */
 }
 
 /* Ajuste específico para la imagen para que no crezca demasiado */
