@@ -323,23 +323,33 @@ button{
 }
 
 /* Corrección de centrado para el detalle del producto */
-#detail-product {
-    display: flex;             /* Activamos Flexbox */
-    align-items: center;       /* Centrado vertical */
-    justify-content: center;   /* Centrado horizontal */
-    gap: 50px;                 /* Espacio entre imagen y datos */
-    flex-wrap: wrap;           /* Responsivo */
-    float: none;               /* Quitamos cualquier float previo */
-    width: 100%;
+/* Contenedor del recuadro */
+.product-card {
+    background: #f4f7f9;        /* Color de fondo del recuadro */
+    border: 1px solid #e1e4e8;  /* Borde suave */
+    border-radius: 15px;        /* Bordes redondeados */
+    padding: 30px;              /* Espacio interno */
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Sombra elegante */
 }
 
-/* Reseteamos los floats antiguos que tenías en .image y .data */
-#detail-product .image, 
-#detail-product .data {
-    float: none !important;    /* Forzamos a ignorar los float anteriores */
-    width: auto !important;    /* Permitimos que Flexbox controle el ancho */
-    flex: 1;                   /* Ambos ocupan espacio equitativo */
-    min-width: 300px;          /* Asegura que no se deformen */
+/* Ajuste del contenido dentro del recuadro */
+#detail-product {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* Fondo blanco para la imagen dentro del recuadro gris */
+#detail-product .image {
+    background: white;          /* Fondo blanco para la imagen */
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    flex: 1;
+    max-width: 350px;
 }
 
 /* Ajuste específico para la imagen para que no crezca demasiado */
