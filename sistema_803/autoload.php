@@ -1,26 +1,25 @@
 <?php
-
 function controllers_autoload($classname) {
-    // 1. Definir los directorios donde guardas tus clases
-    $directories = [
-        'controllers/',
-        'models/',
-		'config/',
-		'helpers',
-		'views'
-    ];
-
-    // 2. Recorrer los directorios para encontrar el archivo
+    $directories = ['controllers/', 'models/','config','helpers','models','views'];
+    
     foreach ($directories as $dir) {
         $file = $dir . $classname . '.php';
         
-        // 3. Validar si el archivo existe antes de intentar incluirlo
+        // 1. Intento original (nombre exacto)
         if (file_exists($file)) {
             include_once $file;
-            return; // Salir apenas encuentre el archivo
+            return;
+        }
+        
+        // 2. Si no existe, buscamos el archivo en el directorio 
+        // e ignoramos las mayúsculas/minúsculas para encontrar el archivo real
+        $files_in_dir = scandir($dir);
+        foreach ($files_in_dir as $f) {
+            if (strcasecmp($f, $classname . '.php') == 0) {
+                include_once $dir . $f;
+                return;
+            }
         }
     }
 }
-
-// 4. Registrar la función en el autoloader de PHP
 spl_autoload_register('controllers_autoload');
