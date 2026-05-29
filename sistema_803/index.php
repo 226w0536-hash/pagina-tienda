@@ -1,6 +1,11 @@
 <?php
 session_start();
 // Habilitar errores para depuración durante el desarrollo en Railway
+if (isset($_GET['controller']) && $_GET['controller'] == 'categoria') {
+    echo "¡Controlador detectado! Acción: " . (isset($_GET['action']) ? $_GET['action'] : 'ninguna');
+    echo " | ID: " . (isset($_GET['id']) ? $_GET['id'] : 'no recibido');
+    // die(); // Descomenta esta línea si quieres ver solo este mensaje y parar todo
+}
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
