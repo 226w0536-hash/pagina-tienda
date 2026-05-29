@@ -322,45 +322,43 @@ button{
     margin-bottom: 10px;
 }
 
-#detail-product {
-    display: flex;             /* Activa el contenedor flexible */
-    flex-wrap: wrap;           /* Permite que se acomode en móviles */
-    align-items: center;       /* ESTO CENTRA TODO VERTICALMENTE */
-    justify-content: center;   /* Centra horizontalmente el contenido */
-    gap: 40px;                 /* Espacio uniforme entre imagen y texto */
-    padding: 20px;
+#detail-product{
     width: 100%;
 }
 
-#detail-product .image {
-    flex: 1;                   /* Ocupa el espacio proporcional */
-    max-width: 400px;          /* Limita el tamaño de la imagen */
-    min-width: 250px;          /* Evita que se encoja demasiado */
+#detail-product .image{
+    display: block;
+    width: 47%;
+    float:left;
 }
 
-#detail-product .data {
-    flex: 1;                   /* Ocupa el espacio proporcional */
-    min-width: 250px;
-    display: flex;             /* Sub-flex para organizar el texto y botón */
-    flex-direction: column;    /* Los elementos van uno debajo de otro */
-    align-items: flex-start;   /* Alinea el texto a la izquierda */
+#detail-product img{
+    display: block;
+    max-width: 100%;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
 }
 
-#detail-product .description {
+#detail-product .data{
+    width: 50%;
+    float:right;
+}
+
+#detail-product .description{
     margin-bottom: 20px;
 }
 
-#detail-product .price {
+#detail-product .price{
     margin-bottom: 10px;
     font-size: 20px;
     color: #444;
-    font-weight: bold;
 }
 
-#detail-product .button {
+#detail-product .button{
     width: 200px;
     text-align: center;
-    margin: 0;                 /* Limpiamos márgenes para que Flex controle */
 }
 
 
