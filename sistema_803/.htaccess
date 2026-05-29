@@ -1,19 +1,11 @@
 <IfModule mod_rewrite.c>
-    # Activar el motor de reescritura
-    RewriteEngine on
-
-    # Definir la página de error personalizada
-    ErrorDocument 404 /error/index
-
-    # 1. Si el archivo solicitado existe físicamente en el servidor, 
-    # servimos el archivo (CSS, imágenes, JS) y detenemos la reescritura.
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^ - [L]
-
-    # 2. Si no es un archivo real, redirigimos todo al index.php.
-    # [QSA] (Query String Append) es vital para que parámetros como ?id=4
-    # se añadan a la URL final sin perderse.
-    # [L] (Last) indica que es la última regla si se cumple.
-    RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ index.php?controller=$1&action=$2 [L,QSA]
+    RewriteEngine On
+    RewriteBase /
+    
+    # Ignorar archivos y carpetas existentes
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Redirigir todo al index.php, enviando la ruta como un parámetro llamado "url"
+    RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
 </IfModule>
