@@ -2,19 +2,9 @@
     RewriteEngine On
     RewriteBase /
 
-    # 1. Definir página de error personalizada
-    ErrorDocument 404 /error/index
-
-    # 2. Si el archivo o directorio solicitado existe, servirlo directamente
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ - [L]
 
-    # 3. Regla de enrutamiento optimizada:
-    # Captura:
-    # $1 -> controlador
-    # $2 -> acción
-    # $3 -> cualquier parámetro adicional después de la acción (gracias a [QSA])
-    # Ejemplo: /categoria/ver?id=1 se mapea a index.php?controller=categoria&action=ver&id=1
-    RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?(.*)$ index.php?controller=$1&action=$2&$3 [L,QSA]
+    # Enviamos toda la ruta (incluyendo parámetros) a un parámetro 'url'
+    RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
 </IfModule>
