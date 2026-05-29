@@ -1,5 +1,8 @@
 <?php
 session_start();
+// En la primera línea de tu index.php
+var_dump($_GET); 
+die(); // Esto detendrá la página y te mostrará qué parámetros está recibiendo
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
