@@ -5,7 +5,7 @@
         
         <div class="image">
             <?php if ($product->imagen != null): ?>
-                <img src="<?= base_url ?>uploads/images/<?= $product->imagen ?>" alt="<?= $product->nombre ?>" />
+                <img src="<?= base_url ?>get_image.php?id=<?= $product->id ?>" alt="<?= $product->nombre ?>" />
             <?php else: ?>
                 <img src="<?= base_url ?>assets/img/camiseta.png" alt="Imagen por defecto" />
             <?php endif; ?>
