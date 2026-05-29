@@ -342,14 +342,10 @@ button{
 
 /* Fondo blanco para la imagen dentro del recuadro gris */
 #detail-product {
+    float: none !important; /* Desactiva el float heredado */
+    margin: 0 auto !important; /* Centra el bloque */
     display: flex;
-    gap: 40px;
-    align-items: flex-start;
-    
-    /* ESTO ES LO QUE LO CENTRA */
-    width: 90%;          /* Que no ocupe el 100% absoluto */
-    max-width: 1000px;   /* Que no se estire demasiado en pantallas grandes */
-    margin: 0 auto;      /* "0" arriba/abajo, "auto" a los lados lo centra */
+    max-width: 900px;
 }
 
 /* Asegurar que el contenedor principal no esté forzando la alineación a la izquierda */
