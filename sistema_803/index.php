@@ -1,5 +1,10 @@
 <?php
 session_start();
+// DEBUG TEMPORAL - Esto te dirá qué está intentando cargar el sistema
+echo "Controlador: " . ($_GET['controller'] ?? 'N/A') . "<br>";
+echo "Acción: " . ($_GET['action'] ?? 'N/A') . "<br>";
+echo "ID: " . ($_GET['id'] ?? 'N/A') . "<br>";
+// die(); // Descomenta esto para detener la carga y ver los datos
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
