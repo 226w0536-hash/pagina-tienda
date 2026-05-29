@@ -1,20 +1,34 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// --- LECTOR DE URL DIRECTO (Inyección manual) ---
+// --- LECTOR DE URL DIRECTO (Versión robusta) ---
 $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2); 
 $path = trim($request_uri[0], '/'); 
 
 if (!empty($path)) {
     $parts = explode('/', $path);
-    // Si no existen en $_GET (porque el .htaccess no los pasó), los inyectamos desde la URI
+    
+    // 1. Asignar controlador
     if (!isset($_GET['controller'])) $_GET['controller'] = $parts[0];
-    if (!isset($_GET['action']) && isset($parts[1])) $_GET['action'] = $parts[1];
+    
+    // 2. Asignar acción y limpiar posibles parámetros pegados (como ver&id=2)
+    if (!isset($_GET['action']) && isset($parts[1])) {
+        $accion_raw = explode('&', $parts[1]);
+        $_GET['action'] = $accion_raw[0];
+        
+        // Si detectamos parámetros en la ruta, los pasamos a $_GET
+        foreach ($accion_raw as $param) {
+            if (strpos($param, '=') !== false) {
+                list($key, $value) = explode('=', $param);
+                $_GET[$key] = $value;
+            }
+        }
+    }
 }
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ------------------------------------------------
 
 require_once 'autoload.php';
 require_once 'config/db.php';
@@ -27,12 +41,11 @@ require_once 'views/layout/sidebar.php';
  * Función para mostrar la página de error 404
  */
 function show_error() {
-    // Diagnóstico temporal
+    // Diagnóstico temporal (puedes borrarlo cuando todo funcione)
     echo "<div style='background: red; color: white; padding: 20px;'>";
     echo "ERROR DE ENRUTAMIENTO:<br>";
-    echo "Controlador solicitado: " . (isset($_GET['controller']) ? $_GET['controller'] : 'Ninguno') . "<br>";
-    echo "Acción solicitada: " . (isset($_GET['action']) ? $_GET['action'] : 'Ninguna') . "<br>";
-    echo "Clase controladora formada: " . (isset($nombre_controlador) ? $nombre_controlador : 'No definida') . "<br>";
+    echo "Controlador: " . (isset($_GET['controller']) ? $_GET['controller'] : 'Ninguno') . "<br>";
+    echo "Acción: " . (isset($_GET['action']) ? $_GET['action'] : 'Ninguna') . "<br>";
     echo "</div>";
     
     $error = new errorController();
@@ -50,7 +63,7 @@ if (isset($_GET['controller'])) {
     $nombre_controlador = controller_default;
 }
 
-// 2. Comprobar si la clase del controlador existe
+// 2. Comprobar si la clase existe
 if (class_exists($nombre_controlador)) {
     $controlador = new $nombre_controlador();
     
