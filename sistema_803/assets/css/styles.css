@@ -445,3 +445,35 @@ button{
     margin-top: -5px; /* Ajusta la posición respecto al input */
     margin-bottom: 10px;
 }
+
+/* Nueva clase para tablas de gestión */
+.manage-table {
+    width: 100%;
+    border-collapse: collapse; /* Evita bordes dobles */
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.manage-table th {
+    background-color: #333; /* Encabezado oscuro profesional */
+    color: white;
+    padding: 12px;
+    text-transform: uppercase;
+}
+
+.manage-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.manage-table tr:hover {
+    background-color: #f1f1f1; /* Efecto al pasar el mouse */
+}
+
+/* Alineación de botones en acciones */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
