@@ -1,11 +1,17 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
-    
-    # Ignorar archivos y carpetas existentes
+
+    # 1. Definir página de error personalizada
+    ErrorDocument 404 /error/index
+
+    # 2. Si el archivo o directorio existe físicamente, servirlo directamente
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    
-    # Redirigir todo al index.php, enviando la ruta como un parámetro llamado "url"
-    RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+    RewriteRule ^ - [L]
+
+    # 3. Regla principal de enrutamiento
+    # Captura controlador/accion y cualquier parámetro adicional (QSA)
+    # Ejemplo: /categoria/ver?id=4 se convierte en index.php?controller=categoria&action=ver&id=4
+    RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)(.*)$ index.php?controller=$1&action=$2$3 [L,QSA]
 </IfModule>
