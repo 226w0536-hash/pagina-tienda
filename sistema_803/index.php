@@ -27,6 +27,14 @@ require_once 'views/layout/sidebar.php';
  * Función para mostrar la página de error 404
  */
 function show_error() {
+    // Diagnóstico temporal
+    echo "<div style='background: red; color: white; padding: 20px;'>";
+    echo "ERROR DE ENRUTAMIENTO:<br>";
+    echo "Controlador solicitado: " . (isset($_GET['controller']) ? $_GET['controller'] : 'Ninguno') . "<br>";
+    echo "Acción solicitada: " . (isset($_GET['action']) ? $_GET['action'] : 'Ninguna') . "<br>";
+    echo "Clase controladora formada: " . (isset($nombre_controlador) ? $nombre_controlador : 'No definida') . "<br>";
+    echo "</div>";
+    
     $error = new errorController();
     $error->index();
 }
