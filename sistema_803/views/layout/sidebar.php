@@ -34,4 +34,16 @@
             <?php endif; ?> 
         </ul>
     </div>
+
+    <div class="block_aside">
+        <h3>Categorías</h3>
+        <ul>
+            <?php $categorias = Utils::showCategorias(); ?>
+            <?php while($cat = $categorias->fetch_object()): ?>
+                <li>
+                    <a href="<?=base_url?>producto/categoria?id=<?=$cat->id?>"><?=$cat->nombre?></a>
+                </li>
+            <?php endwhile; ?>
+        </ul>
+    </div>
 </aside>
