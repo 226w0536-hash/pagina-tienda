@@ -12,7 +12,7 @@ require_once 'views/layout/header.php';
 require_once 'views/layout/sidebar.php';
 
 function show_error(){
-	$error = new errorController();
+	$error = new ErrorController();
 	$error->index();
 }
 
