@@ -8,7 +8,7 @@
 $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";
 $base_url = $protocol . "://" . $_SERVER['HTTP_HOST'] . "/";
 
-define("base_url", $base_url);
+define('base_url', 'http://' . $_SERVER['HTTP_HOST'] . '/master-php/proyecto-php-poo/');
 
 /**
  * Define el controlador que se cargará por defecto cuando el usuario 
