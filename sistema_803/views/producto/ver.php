@@ -5,17 +5,16 @@
         
         <div class="image">
             <?php if ($product->imagen != null): ?>
-                <img src="<?= base_url ?>uploads/images/<?= $product->imagen ?>" />
+                <img src="<?= base_url ?>uploads/images/<?= $product->imagen ?>" alt="<?= $product->nombre ?>" />
             <?php else: ?>
-                <img src="<?= base_url ?>assets/img/camiseta.png" />
+                <img src="<?= base_url ?>assets/img/camiseta.png" alt="Imagen por defecto" />
             <?php endif; ?>
         </div>
 
         <div class="data">
             <p class="description"><?= $product->descripcion ?></p>
             <p class="price"><?= $product->precio ?>$</p>
-            
-            <a href="<?=base_url?>carrito/add?id=<?=$product->id?>" class="button">Comprar</a>
+            <a href="<?= base_url ?>carrito/add?id=<?= $product->id ?>" class="button">Comprar</a>
         </div>
         
     </div>
