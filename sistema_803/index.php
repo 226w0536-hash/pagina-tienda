@@ -12,6 +12,15 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+if (isset($_GET['url'])) {
+    // Ejemplo de URL recibida: "categoria/ver"
+    $ruta = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+    
+    // Asignamos manualmente los valores que tu sistema espera
+    if (isset($ruta[0])) $_GET['controller'] = $ruta[0];
+    if (isset($ruta[1])) $_GET['action'] = $ruta[1];
+}
+
 require_once 'autoload.php';
 require_once 'config/db.php';
 require_once 'config/parameters.php';
