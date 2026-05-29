@@ -238,7 +238,7 @@ button, .button{
 
 .button-small{
     width: auto;
-    padding: 2px 10px; /* 2px arriba/abajo, 10px a los lados */
+    padding: 12px 25px; /* 2px arriba/abajo, 10px a los lados */
     line-height: 15px; /* Ajusta este valor para reducir la altura total */
     
     font-size: 12px;   /* Reduce el tamaño de letra si el botón es muy pequeño */
