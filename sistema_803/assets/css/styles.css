@@ -349,23 +349,27 @@ button{
 }
 
 /* Fondo blanco para la imagen dentro del recuadro gris */
-#detail-product .image {
-    background: white;          /* Fondo blanco para la imagen */
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #eee;
-    flex: 1;
-    max-width: 350px;
+#detail-product {
+    display: flex;
+    gap: 40px; /* Espacio entre imagen y texto */
+    align-items: flex-start; /* Alinea los elementos arriba */
+    width: 100%;
 }
 
 /* Ajuste específico para la imagen para que no crezca demasiado */
-#detail-product .image img {
-    margin: 0 auto;            /* Centrado de la imagen */
+#detail-product .image {
+    flex: 0 0 40%; /* La imagen ocupará el 40% del ancho, no más */
+    max-width: 400px; /* Tamaño máximo para que no se vea gigante */
 }
 
-#detail-product .data{
-    width: 50%;
-    float:right;
+#detail-product .image img {
+    width: 100%; /* La imagen se ajustará al ancho de su contenedor (40%) */
+    height: auto; /* Mantiene la proporción para que no se deforme */
+    display: block;
+}
+
+#detail-product .data {
+    flex: 1; /* El texto tomará el resto del espacio disponible */
 }
 
 #detail-product .description{
