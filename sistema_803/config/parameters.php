@@ -16,5 +16,5 @@ $base_url = $protocol . "://" . $_SERVER['HTTP_HOST'] . "/";
 
 // Definición de constantes
 define("base_url", $base_url);
-define("controller_default", "productoController");
+define("controller_default", "ProductoController");
 define("action_default", "index");
