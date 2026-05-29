@@ -1,11 +1,16 @@
 <?php
-function app_autoload($classname){
-    if (file_exists('controllers/' . $classname . '.php')) {
-        include 'controllers/' . $classname . '.php';
-    } elseif (file_exists('models/' . $classname . '.php')) {
-        include 'models/' . $classname . '.php';
-    } elseif (file_exists('helpers/' . $classname . '.php')) {
-        include 'helpers/' . $classname . '.php';
+spl_autoload_register(function ($classname) {
+    $paths = [
+        'controllers/',
+        'models/',
+        'helpers/'
+    ];
+
+    foreach ($paths as $path) {
+        $file = __DIR__ . '/' . $path . $classname . '.php';
+        if (file_exists($file)) {
+            require_once $file;
+            return;
+        }
     }
-}
-spl_autoload_register('app_autoload');
+});
