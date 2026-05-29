@@ -1,5 +1,9 @@
 <?php
 session_start();
+echo "<pre>";
+print_r($_SERVER);
+echo "</pre>";
+die();
 // DEBUG TEMPORAL - Esto te dirá qué está intentando cargar el sistema
 echo "Controlador: " . ($_GET['controller'] ?? 'N/A') . "<br>";
 echo "Acción: " . ($_GET['action'] ?? 'N/A') . "<br>";
