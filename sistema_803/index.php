@@ -21,14 +21,21 @@ function show_error(){
     $error->index();
 }
 
-// CORRECCIÓN AQUÍ: Aplicamos ucfirst() para asegurar que la clase empiece con mayúscula
-if(isset($_GET['controller'])){
-    $nombre_controlador = ucfirst($_GET['controller']) . 'Controller';
-}elseif(!isset($_GET['controller']) && !isset($_GET['action'])){
+// En el inicio de index.php, reemplaza tu bloque actual de if(isset($_GET['controller'])) por esto:
+
+if(isset($_GET['url'])){
+    // Separamos la cadena: "producto/categoria" -> ["producto", "categoria"]
+    $ruta = explode('/', $_GET['url']);
+    
+    // El primer elemento es el controlador
+    $nombre_controlador = ucfirst($ruta[0]) . 'Controller';
+    
+    // El segundo elemento es la acción (si existe)
+    if(isset($ruta[1])){
+        $_GET['action'] = $ruta[1];
+    }
+} elseif(!isset($_GET['url'])){
     $nombre_controlador = controller_default;
-}else{
-    show_error();
-    exit();
 }
 
 if(class_exists($nombre_controlador)){    
