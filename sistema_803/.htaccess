@@ -1,15 +1,13 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On
+RewriteEngine On
+RewriteBase /
 
-    # 1. Forzar HTTPS
-    RewriteCond %{HTTP:X-Forwarded-Proto} !https
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Forzar HTTPS
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    # 2. Si es archivo o directorio existente, dejarlo pasar
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
+# Si el archivo o directorio existe, no reescribir
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 
-    # 3. Redirigir todo al index.php
-    # Esto envía toda la cadena como parámetro 'url' para que el index la procese
-    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-</IfModule>
+# Capturar cualquier URL y pasarla como un parámetro 'url' al index.php
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
