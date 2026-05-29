@@ -1,23 +1,26 @@
 <?php
 /**
- * Define la URL base del proyecto de forma dinámica.
- * Esto detecta automáticamente el protocolo (http/https) y el dominio 
- * (localhost o tu dominio de Railway), eliminando la necesidad de 
- * modificar el código al cambiar de entorno.
+ * parameters.php
+ * * Define la URL base de forma dinámica para evitar errores de 
+ * "Mixed Content" (HTTPS vs HTTP) y rutas absolutas incorrectas.
  */
-$protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";
-$base_url = $protocol . "://" . $_SERVER['HTTP_HOST'] . "/";
 
-define('base_url', '//' . $_SERVER['HTTP_HOST'] . '/master-php/proyecto-php-poo/');
+// Detectamos el nombre del dominio o IP
+$host = $_SERVER['HTTP_HOST'];
+
+// Detectamos si estamos en la raíz o en una subcarpeta
+// Si tu proyecto en Railway está en la raíz, $uri debe ser "/"
+// Si estás en local con una subcarpeta como /master-php/proyecto-php-poo/, 
+// el código siguiente lo detectará automáticamente.
+$scriptName = $_SERVER['SCRIPT_NAME']; // ej: /master-php/proyecto-php-poo/index.php
+$uri = str_replace('index.php', '', $scriptName);
+
+// Definimos base_url usando '//' para que el navegador use 
+// automáticamente http o https según corresponda.
+define('base_url', '//' . $host . $uri);
 
 /**
- * Define el controlador que se cargará por defecto cuando el usuario 
- * ingrese a la página principal sin especificar ninguna sección.
+ * Controladores por defecto
  */
 define("controller_default", "productoController");
-
-/**
- * Define la acción (el método dentro del controlador) que se ejecutará 
- * por defecto, que en este caso suele ser la vista principal o listado.
- */
 define("action_default", "index");
