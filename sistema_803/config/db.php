@@ -1,21 +1,25 @@
 <?php
-// Definición de la clase Database (Base de datos)
 class Database
 {
-	/**
-	 * Método estático para establecer la conexión con la base de datos.
-	 * Al ser 'public static', se puede invocar directamente sin necesidad 
-	 * de crear un objeto de la clase (ej: Database::connect()).
-	 */
-	public static function connect()
-	{
-		// Crea una nueva instancia de la clase 'mysqli' para conectar con MySQL.
-		// Parámetros: ('servidor', 'usuario', 'contraseña', 'nombre_base_datos')
-		$db = new mysqli('localhost', 'root', '', 'tienda_master');
-		// Ejecuta una consulta para asegurar que los datos se transmitan en UTF-8.
-		// Esto evita problemas con eñes, acentos o caracteres especiales en la web.
-		$db->query("SET NAMES 'utf8'");
-		// Devuelve el objeto de la conexión para que pueda ser utilizado en otras partes del proyecto.
-		return $db;
-	}
+    public static function connect()
+    {
+        // Obtenemos los valores de las variables de entorno de Railway
+        // Si no existen (estás en local), usará los valores por defecto que tenías antes
+        $host = getenv('MYSQLHOST') ?: 'localhost';
+        $user = getenv('MYSQLUSER') ?: 'root';
+        $pass = getenv('MYSQLPASSWORD') ?: '';
+        $db   = getenv('MYSQLDATABASE') ?: 'tienda_master';
+        $port = getenv('MYSQLPORT') ?: 3306;
+
+        // Creamos la conexión pasando el puerto también
+        $db = new mysqli($host, $user, $pass, $db, $port);
+        
+        // Verificamos si hubo error de conexión
+        if ($db->connect_error) {
+            die("Error de conexión: " . $db->connect_error);
+        }
+
+        $db->query("SET NAMES 'utf8'");
+        return $db;
+    }
 }
