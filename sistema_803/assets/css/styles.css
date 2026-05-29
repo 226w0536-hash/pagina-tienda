@@ -477,3 +477,10 @@ button{
     justify-content: center;
     gap: 5px;
 }
+
+/* Añade esto a tu CSS para alinear Sidebar y Contenido de Admin */
+.admin-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
