@@ -27,18 +27,30 @@ function show_error(){
 
 // En el inicio de index.php, reemplaza tu bloque actual de if(isset($_GET['controller'])) por esto:
 
-if(isset($_GET['url'])){
-    // Separamos la cadena: "producto/categoria" -> ["producto", "categoria"]
-    $ruta = explode('/', $_GET['url']);
+if (isset($_GET['url'])) {
+    // Convertimos "producto/categoria&id=1" en partes
+    $url = $_GET['url'];
     
-    // El primer elemento es el controlador
+    // Separamos la parte de la ruta de la cadena de consulta (query string) si la hubiera
+    $ruta_completa = explode('?', $url);
+    $ruta = explode('/', $ruta_completa[0]);
+    
+    // Definir controlador
     $nombre_controlador = ucfirst($ruta[0]) . 'Controller';
     
-    // El segundo elemento es la acción (si existe)
-    if(isset($ruta[1])){
+    // Definir acción (si existe)
+    if (isset($ruta[1])) {
         $_GET['action'] = $ruta[1];
     }
-} elseif(!isset($_GET['url'])){
+    
+    // Si hay parámetros tipo ?id=1, se gestionan automáticamente por PHP en $_GET
+    if (isset($ruta_completa[1])) {
+        parse_str($ruta_completa[1], $params);
+        foreach ($params as $key => $value) {
+            $_GET[$key] = $value;
+        }
+    }
+} else {
     $nombre_controlador = controller_default;
 }
 
